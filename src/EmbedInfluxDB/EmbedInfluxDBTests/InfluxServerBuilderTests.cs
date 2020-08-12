@@ -1,7 +1,8 @@
 ﻿using EmbedInfluxDB;
 using FluentAssertions;
 using NUnit.Framework;
-using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace EmbedInfluxDBTests
 {
@@ -82,17 +83,20 @@ namespace EmbedInfluxDBTests
         class Start
         {
             [Test]
-            public void foo()
+            public async Task Should_Start_Server()
             {
                 // arrange
                 var server = new InfluxServerBuilder()
                                  .Build();
                 // act
-                Console.WriteLine(server.Url);
                 server.Start();
-                // todo : try and query the DB
-                // assert
+                using var client = new HttpClient();
+
+                var result = await client.GetAsync($"{server.Url}/ping");
                 server.Stop();
+
+                // assert
+                result.StatusCode.Should().Be(204);
             }
         }
     }

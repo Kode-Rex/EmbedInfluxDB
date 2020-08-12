@@ -2,22 +2,28 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Travis Frisinger</Authors>
+    <Company>StoneAge Technologies</Company>
+    <PackageProjectUrl>https://github.com/StoneAgeTechnologies/EmbedInfluxDB</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/StoneAgeTechnologies/EmbedInfluxDB</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>InfluxDB Testing</PackageTags>
+    <PackageReleaseNotes>Inital release to help with integration testing on Windows machines. One can only set the port right now, no user/pass or SSL yet.</PackageReleaseNotes>
+    <PackageId>StoneAge.EmbedInfluxDB</PackageId>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StoneAge.Synchronous.Process.Runner.DotNetCore" Version="2.2.1" />
+    <PackageReference Include="StoneAge.Synchronous.Process.Runner.DotNetCore" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="InfluxDb\influx.exe">
+    <Content Include="InfluxDb\*.*" copyToOutput="true">
+      <IncludeInPackage>true</IncludeInPackage>
+      <CopyToOutput>true</CopyToOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="InfluxDb\influxd.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="InfluxDb\influxdb.conf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
 
 </Project>

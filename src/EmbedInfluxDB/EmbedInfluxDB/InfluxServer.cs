@@ -40,11 +40,20 @@ namespace EmbedInfluxDB
             return exePath;
         }
 
-        private static string Build_Arguments()
+        private string Build_Arguments()
         {
+            // # bind-address = ":8086"
+            
+            
             var currentPath = Directory.GetCurrentDirectory();
-            var configPath = $"-config {currentPath}{Path.DirectorySeparatorChar}InfluxDb{Path.DirectorySeparatorChar}influxdb.conf";
-            return configPath;
+            var configurationFilePath = $"{currentPath}{Path.DirectorySeparatorChar}InfluxDb{Path.DirectorySeparatorChar}influxdb.conf";
+            var configSetting = $"-config {configurationFilePath}";
+
+            var configuration = File.ReadAllText(configurationFilePath);
+            configuration = configuration.Replace($"# bind-address = \":8086\"", "bind-address = \":"+Port+"\"");
+            File.WriteAllText(configurationFilePath, configuration);
+
+            return configSetting;
         }
 
         public void Stop()

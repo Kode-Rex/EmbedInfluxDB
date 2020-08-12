@@ -11,7 +11,7 @@ server.Start();
 server.Stop();
 
 # Port Number
-instead of InfluxServerBuilder.FreePort you can specify the port number you would like to use
+Instead of InfluxServerBuilder.FreePort you can specify the port number you would like to use
 Or just use new InfluxServerBuilder().Build(); it will find a free port
 
 # URL

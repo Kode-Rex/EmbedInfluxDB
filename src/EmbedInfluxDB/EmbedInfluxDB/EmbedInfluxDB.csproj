@@ -11,7 +11,7 @@
     <PackageTags>InfluxDB Testing</PackageTags>
     <PackageReleaseNotes>Inital release to help with integration testing on Windows machines. One can only set the port right now, no user/pass or SSL yet.</PackageReleaseNotes>
     <PackageId>StoneAge.EmbedInfluxDB</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Description>An embedded InfluxDb to be used for integration testing.</Description>
   </PropertyGroup>
 
@@ -29,14 +29,10 @@
 
   <ItemGroup>
     <Content Remove="InfluxDb\influxdb.conf" />
-    <Content Remove="InfluxDb\version.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="InfluxDb\influxdb.conf" />
-    <EmbeddedResource Include="InfluxDb\version.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

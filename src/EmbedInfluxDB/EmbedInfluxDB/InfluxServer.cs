@@ -3,6 +3,7 @@ using StoneAge.CleanArchitecture.Domain.Presenters;
 using StoneAge.Synchronous.Process.Runner;
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace EmbedInfluxDB
 {
@@ -41,17 +42,21 @@ namespace EmbedInfluxDB
         }
 
         private string Build_Arguments()
-        {
-            // # bind-address = ":8086"
-            
-            
+        {            
             var currentPath = Directory.GetCurrentDirectory();
             var configurationFilePath = $"{currentPath}{Path.DirectorySeparatorChar}InfluxDb{Path.DirectorySeparatorChar}influxdb.conf";
             var configSetting = $"-config {configurationFilePath}";
 
-            var configuration = File.ReadAllText(configurationFilePath);
-            configuration = configuration.Replace($"# bind-address = \":8086\"", "bind-address = \":"+Port+"\"");
-            File.WriteAllText(configurationFilePath, configuration);
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "EmbedInfluxDB.InfluxDb.influxdb.conf";
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                var configuration = reader.ReadToEnd();
+                configuration = configuration.Replace($"# bind-address = \":8086\"", "bind-address = \":" + Port + "\"");
+                File.WriteAllText(configurationFilePath, configuration);
+            }
 
             return configSetting;
         }

@@ -87,6 +87,7 @@ namespace EmbedInfluxDBTests
             {
                 // arrange
                 var server = new InfluxServerBuilder()
+                                .With_Port(InfluxServerBuilder.FreePort)
                                  .Build();
                 // act
                 server.Start();

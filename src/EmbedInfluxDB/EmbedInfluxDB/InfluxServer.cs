@@ -4,6 +4,7 @@ using StoneAge.Synchronous.Process.Runner;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace EmbedInfluxDB
 {
@@ -20,7 +21,6 @@ namespace EmbedInfluxDB
 
         public void Start()
         {
-            // todo : detect OS and start correct version
             var arguments = Build_Arguments();
             var exePath = Get_Exe_Path();
 
@@ -37,8 +37,15 @@ namespace EmbedInfluxDB
         private static string Get_Exe_Path()
         {
             var currentPath = Directory.GetCurrentDirectory();
-            var exePath = $"{currentPath}{Path.DirectorySeparatorChar}InfluxDb{Path.DirectorySeparatorChar}influxd.exe";
-            return exePath;
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                var linuxExePath = $"{currentPath}{Path.DirectorySeparatorChar}InfluxDb{Path.DirectorySeparatorChar}influxd";
+                return linuxExePath;
+            }
+
+            var windowsExePath = $"{currentPath}{Path.DirectorySeparatorChar}InfluxDb{Path.DirectorySeparatorChar}influxd.exe";
+            return windowsExePath;
         }
 
         private string Build_Arguments()

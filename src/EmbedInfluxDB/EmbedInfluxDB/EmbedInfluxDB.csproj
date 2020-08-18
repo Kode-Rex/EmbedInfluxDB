@@ -9,10 +9,13 @@
     <RepositoryUrl>https://github.com/StoneAgeTechnologies/EmbedInfluxDB</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>InfluxDB Testing</PackageTags>
-    <PackageReleaseNotes>Inital release to help with integration testing on Windows machines. One can only set the port right now, no user/pass or SSL yet.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added linux support for build agents</PackageReleaseNotes>
     <PackageId>StoneAge.EmbedInfluxDB</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.1.2</Version>
     <Description>An embedded InfluxDb to be used for integration testing.</Description>
+    <AssemblyVersion>1.1.2.0</AssemblyVersion>
+    <PackageIcon>leadership-01.jpg</PackageIcon>
+    <FileVersion>1.1.2.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,6 +36,13 @@
 
   <ItemGroup>
     <EmbeddedResource Include="InfluxDb\influxdb.conf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\icons\leadership-01.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
